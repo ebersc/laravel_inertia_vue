@@ -1,4 +1,7 @@
 <template>
+
+    <AppHeader title="Home" />
+
     <div>
         <h2>Home</h2>
     </div>
@@ -8,5 +11,4 @@
 
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
