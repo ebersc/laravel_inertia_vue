@@ -8,3 +8,4 @@ use Inertia\Inertia;
 Route::get('/', [HomeController::class, 'index']);
 
 Route::get('/users', [UserController::class, 'index']);
+Route::delete('/user/delete', [UserController::class, 'destroy']);

@@ -13,4 +13,8 @@ class UserController extends Controller
         ]);
     }
     
+    public function destroy(Request $request) {
+        dd($request->id);
+    }
+    
 }
