@@ -41,7 +41,22 @@ class HandleInertiaRequests extends Middleware
             ],
             'flash' => [
                 'success' => fn() => $request->session()->get('success')
-            ]
+            ],
+            'errors' => function () use ($request) {
+                if (!$request->session()->get('errors')) {
+                    return (object) [];
+                }
+                
+                // Pega apenas a primeira mensagem de erro de cada campo
+                return collect($request->session()->get('errors')->getBags())
+                    ->mapWithKeys(function ($bag) {
+                        return $bag->getMessages();
+                    })
+                    ->map(function ($messages) {
+                        return $messages[0];
+                    })
+                    ->all();
+            },
         ]);
     }
 }

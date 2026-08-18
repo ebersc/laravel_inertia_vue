@@ -8,13 +8,27 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     public function index() {
-        return inertia('Users', [
+        return inertia('Users/Index', [
             'users' => User::all()
         ]);
     }
+
+    public function create() {
+        return inertia('Users/Create');    
+    }
+
+    public function store() {
+        $validated = request()->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
+    }
+    
+    
     
     public function destroy(Request $request) {
-        // User::find($request->id)->delete();
+        User::find($request->id)->delete();
 
         return back()->with('success', 'User deleted.');
     }
