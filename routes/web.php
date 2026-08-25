@@ -21,3 +21,7 @@ Route::delete('/user/delete', [UserController::class, 'destroy'])->name('user.de
 Route::get('/posts', [PostController::class, 'index'])->name('post.index');
 
 Route::delete('/posts/delete/{post}', [PostController::class, 'destroy'])->name('post.destroy')->can('delete', 'post');
+
+Route::fallback(function (){
+    return inertia('Errors/404');
+});
