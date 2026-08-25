@@ -3,6 +3,11 @@
     <AppHeader title="Users" />
     <div>
         <h1>Users</h1>
+
+        <div class="mt-4 mb-4">
+            <input type="text" v-model="search" placeholder="Search...">
+        </div>
+
         <div v-if="$page.props.flash.success" class="alert alert-success">
             {{ $page.props.flash.success }}
         </div>
@@ -18,14 +23,28 @@
 </template>
 
 <script setup>
-import { Link, usePage } from '@inertiajs/vue3';
+import { Link, router, usePage } from '@inertiajs/vue3';
 import Paginator from '../../Components/Paginator.vue';
+import { ref, watch } from 'vue';
+import { debounce } from 'lodash';
+
+
+let props = defineProps({
+    users: Object,
+    searched: String
+})
 
 let page = usePage();
 
-let props = defineProps({
-    users: Object
-})
+let search = ref(props.searched);
+
+watch(search, debounce((value) => {
+    router.get('/users', {search: value}, {
+        preserveState: true,
+        replace: true
+    })
+}, 500));
+
 </script>
 
 <style scoped></style>

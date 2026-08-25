@@ -9,7 +9,13 @@ class UserController extends Controller
 {
     public function index() {
         return inertia('Users/Index', [
-            'users' => User::paginate(10)
+            'users' => User::when(
+                request()->input('search'),
+                function($query, $search){
+                    return $query->where('nome', 'ILIKE', "%$search%");
+                }
+            )->paginate(10),
+            'searched' => request()->input('search') ?? ''
         ]);
     }
 
