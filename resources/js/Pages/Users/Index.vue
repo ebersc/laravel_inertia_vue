@@ -41,7 +41,8 @@ let search = ref(props.searched);
 watch(search, debounce((value) => {
     router.get('/users', {search: value}, {
         preserveState: true,
-        replace: true
+        replace: true,
+        only: ['users']
     })
 }, 500));
 
