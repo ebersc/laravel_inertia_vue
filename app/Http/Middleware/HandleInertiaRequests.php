@@ -37,16 +37,17 @@ class HandleInertiaRequests extends Middleware
     {
         return array_merge(parent::share($request), [
             'auth' => auth()->guest() ? null : [
-                'user' => auth()->user()->only('id', 'nome', 'email')
+                'user' => auth()->user()->only( 'nome', 'email')
             ],
             'flash' => [
-                'success' => fn() => $request->session()->get('success')
+                'success' => fn() => $request->session()->get('success'),
+                'error' => fn() => $request->session()->get('error'),
             ],
             'errors' => function () use ($request) {
                 if (!$request->session()->get('errors')) {
                     return (object) [];
                 }
-                
+
                 // Pega apenas a primeira mensagem de erro de cada campo
                 return collect($request->session()->get('errors')->getBags())
                     ->mapWithKeys(function ($bag) {
