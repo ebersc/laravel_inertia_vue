@@ -1,22 +1,31 @@
 <template>
     <div>
-        <form @submit.prevent="login">
-            <h1 class="mt-4 mb-4">Login</h1>
+        <h1 class="mt-4 mb-4">Login</h1>
 
-            <div v-if="flash.error" class="text text-danger" v-text="flash.error"></div>
+        <template v-if="$page.props.auth">
+            <div class="alert alert-success">
+                You are logged in!
+            </div>
+        </template>
 
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="text" v-model="form.email" class="form-control" id="email" placeholder="Email"></input>
-                <div v-if="errors.email" v-text="errors.email" class="text text-danger"></div>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" v-model="form.password" class="form-control" id="password" placeholder="Password"></input>
-                <div v-if="errors.password" v-text="errors.password" class="text text-danger"></div>
-            </div>
-            <button type="submit" class="btn btn-primary mt-2">Login</button>
-        </form>
+        <template v-else>
+            <form @submit.prevent="login">
+
+                <div v-if="flash.error" class="text text-danger" v-text="flash.error"></div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text" v-model="form.email" class="form-control" id="email" placeholder="Email"></input>
+                    <div v-if="errors.email" v-text="errors.email" class="text text-danger"></div>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" v-model="form.password" class="form-control" id="password" placeholder="Password"></input>
+                    <div v-if="errors.password" v-text="errors.password" class="text text-danger"></div>
+                </div>
+                <button type="submit" class="btn btn-primary mt-2">Login</button>
+            </form>
+        </template>
     </div>
 </template>
 

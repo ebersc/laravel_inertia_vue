@@ -18,7 +18,7 @@
                         <Link class="nav-link" href="/users/create">User Create</Link>
                     </li>
                     <li class="nav-item">
-                        <Link class="nav-link disabled" aria-disabled="true">Disabled</Link>
+                        <Link class="nav-link" href="/posts" >Posts</Link>
                     </li>
                 </ul>
                 <div class="d-flex justify-content-between">
